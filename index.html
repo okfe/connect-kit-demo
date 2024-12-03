@@ -1,69 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>OKX Connect Kit Demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <h1 id="header"></h1>
     <script type="module">
-      import {
-        init,
-        getProvider,
-        SupportedNetworks,
-        connectOKXAppWallet,
-        connectOKXMiniWallet,
-        getUri,
-      } from 'https://unpkg.com/@okxweb3/connect-kit@1.0.1/dist/index.js';
+        import {
+          init,
+          getProvider,
+          SupportedNetworks,
+          connectOKXAppWallet,
+          connectOKXMiniWallet,
+          getUri,
+        } from 'https://unpkg.com/@okxweb3/connect-kit@1.0.1/dist/index.js';
 
-      (async () => {
-          await init();
+        (async () => {
+            await init();
 
-          window.ethereum.on('connect', (result) => {
-              console.log('chainId: ', result.chainId);
-          });
-          window.ethereum.on('accountsChanged', (result) => {
-              console.log('address: ', result[0]);
-          });
-          // connect OKX Mini Wallet
-          document.querySelector('#connectOKXMiniWallet').addEventListener('click', async () => {
-              await connectOKXMiniWallet();
-          });
+            window.ethereum.on('connect', (result) => {
+                console.log('chainId: ', result.chainId);
+            });
+            window.ethereum.on('accountsChanged', (result) => {
+                console.log('address: ', result[0]);
+            });
+            // connect OKX Mini Wallet
+            document.querySelector('#connectOKXMiniWallet').addEventListener('click', async () => {
+                await connectOKXMiniWallet();
+            });
 
-          // connect OKX App Wallet
-          document.querySelector('#connectOKXAppWallet').addEventListener('click', async () => {
-              await connectOKXAppWallet();
-          });
+            // connect OKX App Wallet
+            document.querySelector('#connectOKXAppWallet').addEventListener('click', async () => {
+                await connectOKXAppWallet();
+            });
 
-          // connect by QR Code
-          document.querySelector('#showQRCode').addEventListener('click', async () => {
-              const provider = getProvider(SupportedNetworks.ETHEREUM);
+            // connect by QR Code
+            document.querySelector('#showQRCode').addEventListener('click', async () => {
+                const provider = getProvider(SupportedNetworks.ETHEREUM);
 
-              provider.on('connect', function (result) {
-                  console.log('chainId: ', result.chainId);
-              });
+                provider.on('connect', function (result) {
+                    console.log('chainId: ', result.chainId);
+                });
 
-              provider.on('accountsChanged', function (result) {
-                  console.log('address: ', result[0]);
-              });
+                provider.on('accountsChanged', function (result) {
+                    console.log('address: ', result[0]);
+                });
 
-              const uri = await getUri();
-              const qr = qrcode(0, 'L');
-              qr.addData(uri);
-              qr.make();
-              document.querySelector('#qrcode').innerHTML = qr.createImgTag();
-          });
-      })();
-    </script>
-
-    <button id="connectOKXMiniWallet">connect OKX Mini Wallet</button>
-    <br />
-    <button id="connectOKXAppWallet">connect OKX App Wallet</button>
-    <br />
-    <button id="showQRCode">connect by QR Code</button>
-    <br />
+                const uri = await getUri();
+                const qr = qrcode(0, 'L');
+                qr.addData(uri);
+                qr.make();
+                document.querySelector('#qrcode').innerHTML = qr.createImgTag();
+            });
+        })();
+      </script>
+    
+    <button id="connectOKXMiniWallet"> connect OKX Mini Wallet </button>
+    <br/>
+    <button id="connectOKXAppWallet"> connect OKX App Wallet </button>
+    <br/>
+    <button id="showQRCode"> connect by QR Code </button>
+    <br/>
     <div id="qrcode"></div>
   </body>
 </html>
