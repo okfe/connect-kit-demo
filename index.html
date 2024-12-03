@@ -25,11 +25,11 @@
             const information = document.querySelector('#information');
 
             window.ethereum.on('connect', (result) => {
-                information.innerHTML += `chainId: , ${result.chainId}<br/>`
+                information.innerHTML += `{ethereum} chainId: , ${result.chainId}<br/>`
                 console.log('chainId: ', result.chainId);
             });
             window.ethereum.on('accountsChanged', (result) => {
-                information.innerHTML += `address: , ${result[0]}<br/>`
+                information.innerHTML += `{ethereum} address: , ${result[0]}<br/>`
                 console.log('address: ', result[0]);
             });
             // connect OKX Mini Wallet
@@ -47,12 +47,12 @@
                 const provider = getProvider(SupportedNetworks.ETHEREUM);
 
                 provider.on('connect', function (result) {
-                    information.innerHTML += `chainId: , ${result.chainId}<br/>`
+                    information.innerHTML += `{QR Code} chainId: , ${result.chainId}<br/>`
                     console.log('chainId: ', result.chainId);
                 });
 
                 provider.on('accountsChanged', function (result) {
-                    information.innerHTML += `address: , ${result[0]}<br/>`
+                    information.innerHTML += `{QR Code} address: , ${result[0]}<br/>`
                     console.log('address: ', result[0]);
                 });
 
