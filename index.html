@@ -57,6 +57,7 @@
                 });
 
                 const uri = await getUri();
+                document.querySelector('#qrcode-url').innerHTML = uri;
                 const qr = qrcode(0, 'L');
                 qr.addData(uri);
                 qr.make();
@@ -71,6 +72,7 @@
     <br/><br/>
     <button id="showQRCode"> connect by QR Code </button>
     <br/><br/>
+    <div id="qrcode-url"></div>
     <div id="qrcode"></div>
     <div id="information"></div>
   </body>
